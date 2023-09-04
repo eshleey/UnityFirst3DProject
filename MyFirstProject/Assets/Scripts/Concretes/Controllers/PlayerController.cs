@@ -8,14 +8,19 @@ namespace MyFirsProject
 {
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] public float TurnSpeed;
+        [SerializeField] public float Force;
         DefaultInput _input;
         bool _isForceUp;
+        float _leftRight;
         Mover _mover;
+        Rotater _rotater;
 
         private void Awake()
         {
             _input = new DefaultInput();
-            _mover = new Mover(GetComponent<Rigidbody>());
+            _mover = new Mover(this);
+            _rotater = new Rotater(this);
         }
 
         private void Update()
@@ -28,6 +33,8 @@ namespace MyFirsProject
             {
                 _isForceUp = false;
             }
+
+            _leftRight = _input.LeftRight;
         }
 
         private void FixedUpdate()
@@ -36,6 +43,8 @@ namespace MyFirsProject
             {
                 _mover.FixedTick();
             }
+
+            _rotater.FixedTick(_leftRight);
         }
     }
 }

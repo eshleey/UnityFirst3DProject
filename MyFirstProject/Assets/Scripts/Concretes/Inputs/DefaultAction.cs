@@ -37,6 +37,15 @@ namespace MyFirstProjectInputs
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftRight"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""adee4cf9-22bb-4142-aadf-1d0cfff93395"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -50,6 +59,39 @@ namespace MyFirstProjectInputs
                     ""action"": ""ForceUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""AD"",
+                    ""id"": ""ca9daa89-e334-43d9-b065-94809df9fbd6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftRight"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""9d0135e1-a6a7-4a79-944c-014f5ae1c5b7"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""07e8d725-e9b9-4395-9329-d5265b5ee05b"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -59,6 +101,7 @@ namespace MyFirstProjectInputs
             // Rocket
             m_Rocket = asset.FindActionMap("Rocket", throwIfNotFound: true);
             m_Rocket_ForceUp = m_Rocket.FindAction("ForceUp", throwIfNotFound: true);
+            m_Rocket_LeftRight = m_Rocket.FindAction("LeftRight", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -121,11 +164,13 @@ namespace MyFirstProjectInputs
         private readonly InputActionMap m_Rocket;
         private List<IRocketActions> m_RocketActionsCallbackInterfaces = new List<IRocketActions>();
         private readonly InputAction m_Rocket_ForceUp;
+        private readonly InputAction m_Rocket_LeftRight;
         public struct RocketActions
         {
             private @DefaultAction m_Wrapper;
             public RocketActions(@DefaultAction wrapper) { m_Wrapper = wrapper; }
             public InputAction @ForceUp => m_Wrapper.m_Rocket_ForceUp;
+            public InputAction @LeftRight => m_Wrapper.m_Rocket_LeftRight;
             public InputActionMap Get() { return m_Wrapper.m_Rocket; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -138,6 +183,9 @@ namespace MyFirstProjectInputs
                 @ForceUp.started += instance.OnForceUp;
                 @ForceUp.performed += instance.OnForceUp;
                 @ForceUp.canceled += instance.OnForceUp;
+                @LeftRight.started += instance.OnLeftRight;
+                @LeftRight.performed += instance.OnLeftRight;
+                @LeftRight.canceled += instance.OnLeftRight;
             }
 
             private void UnregisterCallbacks(IRocketActions instance)
@@ -145,6 +193,9 @@ namespace MyFirstProjectInputs
                 @ForceUp.started -= instance.OnForceUp;
                 @ForceUp.performed -= instance.OnForceUp;
                 @ForceUp.canceled -= instance.OnForceUp;
+                @LeftRight.started -= instance.OnLeftRight;
+                @LeftRight.performed -= instance.OnLeftRight;
+                @LeftRight.canceled -= instance.OnLeftRight;
             }
 
             public void RemoveCallbacks(IRocketActions instance)
@@ -165,6 +216,7 @@ namespace MyFirstProjectInputs
         public interface IRocketActions
         {
             void OnForceUp(InputAction.CallbackContext context);
+            void OnLeftRight(InputAction.CallbackContext context);
         }
     }
 }
