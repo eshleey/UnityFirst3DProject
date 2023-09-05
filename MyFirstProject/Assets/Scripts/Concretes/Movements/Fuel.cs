@@ -2,36 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fuel : MonoBehaviour
+namespace MyFirsProjectMovements
 {
-    [SerializeField] float _maxFuel = 100f;
-    [SerializeField] float _currentFuel;
-    [SerializeField] ParticleSystem _particle;
-
-    private void Awake()
+    public class Fuel : MonoBehaviour
     {
-        _currentFuel = _maxFuel;
-    }
+        [SerializeField] float _maxFuel = 100f;
+        [SerializeField] float _currentFuel;
+        [SerializeField] ParticleSystem _particle;
 
-    public void FuelIncrease(float increase)
-    {
-        _currentFuel += increase;
-        _currentFuel = Mathf.Min(_currentFuel, _maxFuel);
+        public bool IsEmpty => _currentFuel < 1f;
 
-        if (_particle.isPlaying)
+        private void Awake()
         {
-            _particle.Stop();
+            _currentFuel = _maxFuel;
         }
-    }
 
-    public void FuelDecrease(float decrease)
-    {
-        _currentFuel -= decrease;
-        _currentFuel = Mathf.Max(_currentFuel, 0f);
-
-        if (_particle.isStopped)
+        public void FuelIncrease(float increase)
         {
-            _particle.Play();
+            _currentFuel += increase;
+            _currentFuel = Mathf.Min(_currentFuel, _maxFuel);
+
+            if (_particle.isPlaying)
+            {
+                _particle.Stop();
+            }
+        }
+
+        public void FuelDecrease(float decrease)
+        {
+            _currentFuel -= decrease;
+            _currentFuel = Mathf.Max(_currentFuel, 0f);
+
+            if (_particle.isStopped)
+            {
+                _particle.Play();
+            }
         }
     }
 }
