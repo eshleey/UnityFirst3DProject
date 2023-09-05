@@ -8,8 +8,6 @@ namespace MyFirsProject
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] public float TurnSpeed;
-        [SerializeField] public float Force;
         DefaultInput _input;
         bool _isForceUp;
         float _leftRight;

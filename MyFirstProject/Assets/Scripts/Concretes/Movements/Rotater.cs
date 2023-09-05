@@ -26,7 +26,7 @@ namespace MyFirsProjectMovements
 
             if( !_rigidbody.freezeRotation ) _rigidbody.freezeRotation = true;
 
-            _playerController.transform.Rotate(Vector3.back * Time.deltaTime * direction * _playerController.TurnSpeed); 
+            _playerController.transform.Rotate(Vector3.back * Time.deltaTime * direction * 45f); 
         }
     }
 }

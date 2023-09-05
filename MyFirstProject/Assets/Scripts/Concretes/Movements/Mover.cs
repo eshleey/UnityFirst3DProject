@@ -18,7 +18,7 @@ namespace MyFirsProjectMovements
 
         public void FixedTick()
         {
-            _rigidbody.AddRelativeForce(Vector3.up * Time.deltaTime * _playerController.Force);
+            _rigidbody.AddRelativeForce(Vector3.up * Time.deltaTime * 50f);
         }
     }
 }
