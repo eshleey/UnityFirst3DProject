@@ -33,11 +33,13 @@ namespace MyFirsProjectControllers
         private void OnEnable()
         {
             GameManager.Instance.OnGameOver += HandleOnEventTriggered;
+            GameManager.Instance.OnMissionSucced += HandleOnEventTriggered;
         }
 
         private void OnDisable()
         {
             GameManager.Instance.OnGameOver -= HandleOnEventTriggered;
+            GameManager.Instance.OnMissionSucced -= HandleOnEventTriggered;
         }
 
         private void Update()

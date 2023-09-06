@@ -21,6 +21,7 @@ namespace MyFirsProjectControllers
             {
                 _finishFirework.SetActive(true);
                 _finishLight.SetActive(true);
+                GameManager.Instance.MissionSucced();
             }
             else
             {

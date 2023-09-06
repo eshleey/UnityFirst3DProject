@@ -9,6 +9,8 @@ namespace MyFirsProjectManagers
         public static GameManager Instance;
 
         public event System.Action OnGameOver;
+        public event System.Action OnMissionSucced;
+
         private void Awake()
         {
             SingletonThisGameObject();
@@ -30,6 +32,11 @@ namespace MyFirsProjectManagers
         public void GameOver()
         {
             OnGameOver?.Invoke(); ;
+        }
+
+        public void MissionSucced()
+        {
+            OnMissionSucced?.Invoke();
         }
     }
 }
