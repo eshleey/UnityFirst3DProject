@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using MyFirsProject;
+using MyFirsProjectControllers;
 using UnityEngine;
 
 namespace MyFirsProjectMovements

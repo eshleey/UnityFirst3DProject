@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MyFirsProject
+namespace MyFirsProjectControllers
 {
     public class StartFloorController : MonoBehaviour
     {

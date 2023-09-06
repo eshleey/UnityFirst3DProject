@@ -3,17 +3,24 @@ using MyFirsProjectMovements;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyFirsProjectManagers;
 
-namespace MyFirsProject
+namespace MyFirsProjectControllers
 {
     public class PlayerController : MonoBehaviour
     {
         DefaultInput _input;
         bool _canForceUp;
+        bool _canMove;
         float _leftRight;
         Mover _mover;
         Rotater _rotater;
         Fuel _fuel;
+
+        private void Start()
+        {
+            _canMove = true;
+        }
 
         private void Awake()
         {
@@ -23,8 +30,20 @@ namespace MyFirsProject
             _fuel = GetComponent<Fuel>();
         }
 
+        private void OnEnable()
+        {
+            GameManager.Instance.OnGameOver += HandleOnEventTriggered;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.OnGameOver -= HandleOnEventTriggered;
+        }
+
         private void Update()
         {
+            if (!_canMove) return;
+
             if( _input.IsForceUp && !_fuel.IsEmpty)
             {
                 _canForceUp = true;
@@ -47,6 +66,14 @@ namespace MyFirsProject
             }
 
             _rotater.FixedTick(_leftRight);
+        }
+
+        private void HandleOnEventTriggered()
+        {
+            _canMove = false;
+            _canForceUp = false;
+            _leftRight = 0f;
+            _fuel.FuelIncrease(0f);
         }
     }
 }

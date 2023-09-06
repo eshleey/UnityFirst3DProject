@@ -1,9 +1,10 @@
+using MyFirsProjectManagers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MyFirsProject
+namespace MyFirsProjectControllers
 {
     public class FinishFloorController : MonoBehaviour
     {
@@ -23,7 +24,7 @@ namespace MyFirsProject
             }
             else
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.Instance.GameOver();
             }
         }
     }
