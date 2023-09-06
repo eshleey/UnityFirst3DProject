@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MyFirsProjectManagers
 {
@@ -37,6 +38,32 @@ namespace MyFirsProjectManagers
         public void MissionSucced()
         {
             OnMissionSucced?.Invoke();
+        }
+
+        public void LoadLevelScene(int LevelIndex = 0)
+        {
+            StartCoroutine(LoadLevelSceneAsync(LevelIndex));
+        }
+
+        private IEnumerator LoadLevelSceneAsync(int LevelIndex)
+        {
+            yield return SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + LevelIndex);
+        }
+
+        public void LoadMenuScene()
+        {
+            StartCoroutine(LoadMenuSceneAsync());
+        }
+
+        private IEnumerator LoadMenuSceneAsync()
+        {
+            yield return SceneManager.LoadSceneAsync("Menu");
+        }
+
+        public void Exit()
+        {
+            Debug.Log("Exit process on triggered");
+            Application.Quit();
         }
     }
 }
