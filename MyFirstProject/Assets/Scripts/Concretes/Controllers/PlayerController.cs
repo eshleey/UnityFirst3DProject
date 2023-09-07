@@ -17,6 +17,8 @@ namespace MyFirsProjectControllers
         Rotater _rotater;
         Fuel _fuel;
 
+        public bool CanMove => _canMove;
+
         private void Start()
         {
             _canMove = true;
