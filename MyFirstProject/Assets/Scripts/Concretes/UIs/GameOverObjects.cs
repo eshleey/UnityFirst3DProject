@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyFirstProjectUIs
 {
-    public class GameOverObject : MonoBehaviour
+    public class GameOverObjects : MonoBehaviour
     {
         [SerializeField] GameObject _gameOverPanel;
 
