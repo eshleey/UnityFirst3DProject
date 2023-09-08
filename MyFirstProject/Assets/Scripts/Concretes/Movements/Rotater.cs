@@ -9,11 +9,13 @@ namespace MyFirsProjectMovements
     {
         Rigidbody _rigidbody;
         PlayerController _playerController;
+        float _rotateSpeed;
 
         public Rotater(PlayerController playerController)
         {
             _playerController = playerController;
             _rigidbody = _playerController.GetComponent<Rigidbody>();
+            _rotateSpeed = playerController.RotateSpeed;
         }
 
         public void FixedTick(float direction)
@@ -26,7 +28,7 @@ namespace MyFirsProjectMovements
 
             if( !_rigidbody.freezeRotation ) _rigidbody.freezeRotation = true;
 
-            _playerController.transform.Rotate(Vector3.back * Time.deltaTime * direction * 45f); 
+            _playerController.transform.Rotate(Vector3.back * Time.deltaTime * direction * 20f); 
         }
     }
 }

@@ -14,8 +14,12 @@ namespace MyFirsProjectControllers
         Mover _mover;
         Rotater _rotater;
         Fuel _fuel;
+        [SerializeField] float _moveSpeed;
+        [SerializeField] float _rotateSpeed;
 
         public bool CanMove => _canMove;
+        public float MoveSpeed => _moveSpeed;
+        public float RotateSpeed => _rotateSpeed;
 
         private void Start()
         {
