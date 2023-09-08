@@ -1,42 +1,30 @@
+using MyFirsProjectAbstractUtilities;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace MyFirsProjectManagers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonThisObject<GameManager>
     {
-        public static GameManager Instance;
-
         public event System.Action OnGameOver;
         public event System.Action OnMissionSucced;
 
         private void Awake()
         {
-            SingletonThisGameObject();
-        }
-
-        private void SingletonThisGameObject()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(this.gameObject);
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            SingletonThisGameObject(this);
         }
 
         public void GameOver()
         {
-            OnGameOver?.Invoke(); ;
+            OnGameOver?.Invoke();
+            SoundManager.Instance.PlaySound(4);
         }
 
         public void MissionSucced()
         {
             OnMissionSucced?.Invoke();
+            SoundManager.Instance.PlaySound(3);
         }
 
         public void LoadLevelScene(int LevelIndex = 0)
@@ -46,7 +34,9 @@ namespace MyFirsProjectManagers
 
         private IEnumerator LoadLevelSceneAsync(int LevelIndex)
         {
+            SoundManager.Instance.StopSound(1);
             yield return SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + LevelIndex);
+            SoundManager.Instance.PlaySound(2);
         }
 
         public void LoadMenuScene()
@@ -56,7 +46,9 @@ namespace MyFirsProjectManagers
 
         private IEnumerator LoadMenuSceneAsync()
         {
+            SoundManager.Instance.StopSound(2);
             yield return SceneManager.LoadSceneAsync("Menu");
+            SoundManager.Instance.PlaySound(1);
         }
 
         public void Exit()
